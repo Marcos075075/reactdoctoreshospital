@@ -8,10 +8,11 @@ import $ from 'jquery';
 import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import MenuComponent from './components/MenuComponent';
+import Router from './components/Router';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <MenuComponent />
+    <Router />
 );
 
 // If you want to start measuring performance in your app, pass a function
