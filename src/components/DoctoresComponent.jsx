@@ -8,7 +8,8 @@ export default class DoctoresComponent extends Component {
   url = Global.urlApiDoctores;
 
   state = {
-    doctores: []
+    doctores: [],
+    idDoc: null
   }
 
   cargarDoctoresHospital = () => {
@@ -21,6 +22,14 @@ export default class DoctoresComponent extends Component {
     })
   }
 
+  cogerID = (id) => {
+    this.setState({
+      idDoc: id
+    })
+    console.log(this.state.idDoc);
+
+  }
+
   componentDidMount = () => {
     this.cargarDoctoresHospital();
   }
@@ -28,14 +37,14 @@ export default class DoctoresComponent extends Component {
   componentDidUpdate = (oldProps) => {
     if (oldProps.idHospital != this.props.idHospital) {
       this.cargarDoctoresHospital();
-    }  
+    }
   }
 
   render() {
     return (
       <div>
         <h1>
-            Doctores del hospital {this.props.idHospital}
+          Doctores del hospital {this.props.idHospital}
         </h1>
         <table className='table table-primary'>
           <thead>
@@ -50,22 +59,23 @@ export default class DoctoresComponent extends Component {
           <tbody>
             {
               this.state.doctores.map((doc, index) => {
-                return(
+                return (
                   <tr key={index}>
                     <td>{doc.apellido}</td>
                     <td>{doc.especialidad}</td>
                     <td>{doc.salario}</td>
                     <td>{doc.idHospital}</td>
-                    <td><button>Mostrar Detalles</button></td>
+                    <td><button className='btn btn-info' onClick={() => { this.cogerID(doc.idDoctor) }}>Mostrar Detalles</button></td>
                   </tr>
                 )
               })
             }
           </tbody>
         </table>
-
-        <DetallesDoctor id="120"/>
-
+        {
+          this.state.idDoc &&
+          <DetallesDoctor id={this.state.idDoc} />
+        }
       </div>
     )
   }

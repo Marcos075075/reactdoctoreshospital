@@ -7,13 +7,11 @@ export default class DetallesDoctor extends Component {
 
     state = {
         doctor: null,
-        id: null
     }
 
-    id = this.props.id;
-
+    
     mostrarDetalles = () => {
-        let request = "api/doctores/" + this.id;
+        let request = "api/doctores/" + this.props.id;
         axios.get(this.url + request).then((respuesta) => {
             console.log(respuesta.data);
             this.setState({
@@ -24,6 +22,12 @@ export default class DetallesDoctor extends Component {
 
     componentDidMount = () => {
         this.mostrarDetalles();
+    }
+
+    componentDidUpdate = (oldProps) => {
+        if (oldProps.id != this.props.id) {
+            this.mostrarDetalles();
+        }
     }
 
     render() {
