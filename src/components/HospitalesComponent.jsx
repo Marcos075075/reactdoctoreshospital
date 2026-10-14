@@ -1,24 +1,21 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import Global from '../Global'
+import ServiceHospitales from '../services/ServiceHospitales'
 
 export default class HospitalesComponent extends Component {
-    url = Global.urlApiHospitales2;
+    service = new ServiceHospitales();
 
     state = {
         hospitales: []
     }
 
     loadHosptiales = () => {
-        let request = "api/hospitales";
-
-        axios.get(this.url + request).then((respuesta) => {
-            console.log("Leyendo hospitales");
+        this.service.getHospitales().then(result => {
             this.setState({
-                hospitales: respuesta.data
+                hospitales: result
             })
-
         })
+
+
     }
 
     componentDidMount = () => {
@@ -29,34 +26,38 @@ export default class HospitalesComponent extends Component {
         return (
             <div>
                 <h1>Componente Hospitales</h1>
-                <table className='table table-warning'>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Direccion</th>
-                            <th>Telefono</th>
-                            <th>Camas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.state.hospitales.map((hospital, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{hospital.idHospital}</td>
-                                        <td>{hospital.nombre}</td>
-                                        <td>{hospital.direccion}</td>
-                                        <td>{hospital.telefono}</td>
-                                        <td>{hospital.camas}</td>
-                                    </tr>
+                {
+                    this.state.hospitales &&
+                    (<table className='table table-warning'>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Direccion</th>
+                                <th>Telefono</th>
+                                <th>Camas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                this.state.hospitales.map((hospital, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{hospital.idHospital}</td>
+                                            <td>{hospital.nombre}</td>
+                                            <td>{hospital.direccion}</td>
+                                            <td>{hospital.telefono}</td>
+                                            <td>{hospital.camas}</td>
+                                        </tr>
 
 
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </table>)
+                }
+
             </div>
         )
     }

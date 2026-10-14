@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import Global from '../Global'
 import { Navigate } from 'react-router-dom';
+import ServiceHospitales from '../services/ServiceHospitales';
 
 export default class CreateHospitale extends Component {
     cajaId = React.createRef();
@@ -10,11 +9,10 @@ export default class CreateHospitale extends Component {
     cajaTelefono = React.createRef();
     cajaCamas = React.createRef();
 
-    url = Global.urlApiHospitales2;
+    service = new ServiceHospitales();
 
     insertHospital = (e) => {
         e.preventDefault();
-        let request = "api/hospitales";
         let hospital = {
             idHospital: parseInt(this.cajaId.current.value),
             nombre: this.cajaNombre.current.value,
@@ -22,13 +20,11 @@ export default class CreateHospitale extends Component {
             telefono: this.cajaTelefono.current.value,
             camas: parseInt(this.cajaCamas.current.value)
         }
-        axios.post(this.url + request, hospital).then((response) => {
-            console.log("Inserado!!!");
+
+        this.service.insertHospital(hospital).then((result) =>{
             this.setState({
-                mensaje: "Hospital insertado: " + hospital.nombre,
                 status: true
             })
-            
         })
     }
 
