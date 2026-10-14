@@ -37,6 +37,9 @@ export default class DoctoresComponent extends Component {
   componentDidUpdate = (oldProps) => {
     if (oldProps.idHospital != this.props.idHospital) {
       this.cargarDoctoresHospital();
+      this.setState({
+        idDoc: null
+      })
     }
   }
 
