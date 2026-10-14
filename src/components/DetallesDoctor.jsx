@@ -36,11 +36,11 @@ export default class DetallesDoctor extends Component {
                 <h1>Detalles del Doctor</h1>
                 {
                     this.state.doctor &&
-                            <ul>
-                                <li>Apellido: {this.state.doctor.apellido}</li>
-                                <li>Especialidad: {this.state.doctor.especialidad}</li>
-                                <li>Salario: {this.state.doctor.salario}</li>
-                                <li>Hospital: {this.state.doctor.idHospital}</li>
+                            <ul className='list-group'>
+                                <li className='list-group-item'>Apellido: {this.state.doctor.apellido}</li>
+                                <li className='list-group-item'>Especialidad: {this.state.doctor.especialidad}</li>
+                                <li className='list-group-item'>Salario: {this.state.doctor.salario}</li>
+                                <li className='list-group-item'>Hospital: {this.state.doctor.idHospital}</li>
                             </ul>
                 }
             </div>
